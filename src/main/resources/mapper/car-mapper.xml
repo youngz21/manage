@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="carMapper">
+    <resultMap id="carList" type="com.car.manage.car.vo.CarVO">
+        <result column="MODEL_NUMBER" property="modelNumber" />
+        <result column="MODEL_NAME" property="modelName" />
+        <result column="PRICE" property="price" />
+        <result column="MFR_CODE" property="mfrCode" />
+        <result column="MFR_NAME" property="mfrName" />
+    </resultMap>
+
+    <resultMap id="mfrList" type="com.car.manage.car.vo.MfrVO">
+        <id column="MFR_CODE" property="mfrCode"/>
+        <result column="MFR_NAME" property="mfrName"/>
+    </resultMap>
+
+
+
+    <insert id="addModel">
+        INSERT INTO car_info (
+        MODEL_NAME
+        ,   PRICE
+        ,   MFR_CODE
+
+        ) values (
+         #{modelName}
+        ,   #{price}
+        ,   #{mfrCode}
+        )
+    </insert>
+
+    <select id="selectCars" resultMap="carList">
+        SELECT
+        MODEL_NUMBER,
+        MODEL_NAME,
+        PRICE,
+        MFR.MFR_CODE,
+        MFR.MFR_NAME
+        FROM
+        car_info BASE
+        INNER JOIN
+        MFR_LIST MFR
+        ON
+        BASE.MFR_CODE = MFR.MFR_CODE
+
+    </select>
+
+    <select id="selectMfrList" resultMap="mfrList">
+        SELECT
+            MFR_CODE
+        ,   MFR_NAME
+        FROM mfr_list
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
